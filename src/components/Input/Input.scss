@@ -1,0 +1,23 @@
+input {
+    width: 100%;
+    height: 60px;
+    padding: 10px 15px;
+    border: none;
+    // outline: none;
+    outline-color: #2196f3;
+    box-sizing: border-box;
+    border: 1px solid rgba(185,190,199,.6);
+    box-shadow: 0 19px 25px rgb(10 10 51 / 4%);
+    
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
