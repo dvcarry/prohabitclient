@@ -30,7 +30,6 @@ export const LoginForm = () => {
       setError("Введите корректный email");
     } else {
       const response = await api.login({ email, password });
-      console.log("🚀 ~ file: LoginForm.tsx:33 ~ submitHandler ~ response:", response)
       if (response.success) {
         localStorage.setItem("prohabit", JSON.stringify({ token: response.token }));
         history("/lk");

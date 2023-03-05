@@ -39,6 +39,7 @@ export const HabitsPage = () => {
       <div className="habits">
         {habits.map((habit) => (
           <div
+            key={habit.id}
             onClick={() => setCur(habit.id)}
             className={habit.id === cur ? "card card-active" : "card"}
           >
