@@ -1,0 +1,20 @@
+@import '../../styles/variables.scss';
+
+.datecard {
+    display: flex;
+    background-color: white;
+}
+
+.datecard_date {
+    padding: 10px;
+}
+
+.date-done {
+    background-color: $color-orange;
+    width: 20px;
+};
+
+.date-undone {
+    background-color: lightgray;
+    width: 20px;
+};

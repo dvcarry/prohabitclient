@@ -9,10 +9,8 @@ type CardProps = {
 
 export const Card: FC<CardProps> = ({ heading, text, icon }) => {
   return (
-    <div className="card">
-      {
-        icon && <div className="icon">{icon}</div>
-      }      
+    <div className="landing_card">
+      {icon && <div className="icon">{icon}</div>}
       <div className="heading">{heading}</div>
       <div className="text mt-20">{text}</div>
     </div>

@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const getToken = () => JSON.parse(localStorage.getItem('prohabit'))?.token;
 
-axios.defaults.baseURL = 'http://localhost:5117';
-// axios.defaults.headers.common["Authorization"] = 'Bearer ' + getToken();
+// axios.defaults.baseURL = 'http://localhost:5118';
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://prohabit.ru/' : 'http://localhost:5118';
 
 axios.interceptors.request.use(
     config => {
@@ -20,6 +20,14 @@ export const api = {
     async registration(userData) {
         try {
             const { data } = await axios.post('/api/auth/registration', userData)
+            return data
+        } catch (error) {
+            console.log('error', error)
+        }
+    },
+    async login(userData) {
+        try {
+            const { data } = await axios.post('/api/auth/login', userData)
             return data
         } catch (error) {
             console.log('error', error)
@@ -68,6 +76,14 @@ export const api = {
     async getDones() {
         try {
             const { data } = await axios.get('/api/dones')
+            return data
+        } catch (error) {
+            console.log('error', error)
+        }
+    },
+    async getUser() {
+        try {
+            const { data } = await axios.get('/api/users')
             return data
         } catch (error) {
             console.log('error', error)

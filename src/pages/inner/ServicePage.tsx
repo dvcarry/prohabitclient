@@ -1,8 +1,10 @@
+import { Line } from "rc-progress";
 import { useEffect, useState } from "react";
-import { MdTaskAlt } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "../../components/Button/Button";
 import { PostForm } from "../../components/Forms/PostForm";
+import { Points } from "../../components/Points/Points";
 import { Post } from "../../components/Post/Post";
 import { Section } from "../../components/Section/Section";
 import { Tips } from "../../components/Tips/Tips";
@@ -29,9 +31,14 @@ const ServicePage = () => {
     myDone: boolean;
     posts: IPost[];
     habit: string;
+    myPoints: number;
+    teamPoints: number;
+    myName: string;
   } | null>(null);
   const [open, setOpen] = useState(false);
   const [postWriting, setPostWriting] = useState(false);
+
+  const history = useNavigate()
 
   const getDones = async () => {
     const res = await api.getDones();
@@ -46,12 +53,27 @@ const ServicePage = () => {
 
   const doneHandler = async () => {
     if (!data.myDone) {
-      await api.addDone();
-      const users = data.users.map((user) =>
-        user.name === "Я" ? { ...user, done: true } : user
-      );
-      setData({ ...data, myDone: true, users });
-      setPostWriting(true);
+      const response = await api.addDone();
+      if (response.success) {
+        const users = data.users.map((user) =>
+          user.name === "Я" ? { ...user, done: true } : user
+        );
+        let newData = {
+          ...data,
+          myDone: true,
+          users,
+          myPoints: data.myPoints + 1,
+          teamPoints: data.teamPoints + response.data.points,
+        };
+        if (response.data.post) {
+          newData = {
+            ...newData,
+            posts: [response.data.post, ...newData.posts],
+          };
+        }
+        setData(newData);
+        setPostWriting(true);
+      }
     }
   };
 
@@ -70,51 +92,84 @@ const ServicePage = () => {
 
   return (
     <div>
-      <div className="mb-20 flex">
-        <h1>{data.habit}</h1>
-      </div>
-      <div
-        className="card text-center card-blue"
-        onClick={() => setOpen(!open)}
-      >
-        <div className="bold">{`${doneCount} / ${usersCount}`}</div>
-        <div className={open ? "mt-20" : "hidden"}>
-          {data.users.map((user) => (
-            <div>
-              {user.done && <span>&#10003;</span>} {user.name}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div
-        className={
-          data.myDone
-            ? "text-center check check-done mb-20"
-            : "text-center check mb-20"
-        }
-      >
-        <MdTaskAlt size={64} onClick={doneHandler} />
-      </div>
-      <Tips />
-
-      {postWriting && (
-        <PostForm addPost={addPostHadnler} cancel={cancelPostHandler} />
-      )}
-
-      {!postWriting && (
-        <div className="">
-          <div><Button type='link' text="Добавить сообщение" click={() => setPostWriting(true)} /></div>
-          <div>
-            {" "}
-            {data.posts.map((post) => (
-              <Post
-                text={post.text}
-                name={post.name}
-                create_date={post.create_date}
-              />
-            ))}
+      <div>
+        <div className="wrapper">
+          <div className="mb-20 flex">
+            <div className="heading">{data.habit}</div>
           </div>
+          <div className="kpi_blocks">
+            <div className="kpi_block" onClick={() => history('user')}>
+              <div className="block_flex_between mb-20">
+                <div className="emoji_block">
+                  <span>😏</span>
+                </div>
+                <Points points={data.myPoints} />
+              </div>
+              <h5>{data.myName}</h5>
+              <Line
+                percent={data.myDone ? 100 : 0}
+                strokeWidth={6}
+                trailWidth={6}
+                strokeColor="#ff8703"
+                trailColor="#D3D3D3"
+              />
+              <div className="indicators_today">
+                {data.myDone ? "Готово!" : "0"}
+              </div>
+            </div>
+            <div className="kpi_block" onClick={() => history('team')}>
+              <div className="block_flex_between mb-20">
+                <div className="emoji_block">
+                  <span>&#127942;</span>
+                </div>
+                <Points points={data.teamPoints} />
+              </div>
+              <h5>Команда</h5>
+              <Line
+                percent={(doneCount / usersCount) * 100}
+                strokeWidth={6}
+                trailWidth={6}
+                strokeColor="#ff8703"
+                trailColor="#D3D3D3"
+              />
+              <div className="indicators_today">{`${doneCount} / ${usersCount}`}</div>
+            </div>
+          </div>
+          {postWriting ? (
+            <PostForm addPost={addPostHadnler} cancel={cancelPostHandler} />
+          ) : (
+            <>
+              {!data.myDone && (
+                <Button text="Выполнено сегодня" click={doneHandler} />
+              )}
+              {/* <Tips /> */}
+            </>
+          )}
         </div>
+      </div>
+      {!postWriting && (
+        <>
+          <div className="wrapper-width block_flex_between mb-20">
+            <div className="heading">Сообщения</div>
+            <span className="plus" onClick={() => setPostWriting(true)}>
+              +
+            </span>
+          </div>
+          <div className="wrapper posts">
+            <div>
+              {" "}
+              {data.posts.map((post) => (
+                <Post
+                  key={post.id}
+                  text={post.text}
+                  name={post.name}
+                  create_date={post.create_date}
+                  type={post.user_id === 0 ? "system" : "user"}
+                />
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

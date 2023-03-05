@@ -6,13 +6,14 @@ type PostProps = {
   name: string;
   text: string;
   create_date: Date;
+  type: 'user' | 'system';
 };
 
-export const Post: FC<PostProps> = ({ name, text, create_date }) => {
+export const Post: FC<PostProps> = ({ name, text, create_date, type }) => {
   return (
-    <div className="mb-40">
+    <div className="mb-40 post">
       <div className="post_block"><span className="post_name">{name}</span><span className="post_time">{getRelativeTime(create_date)}</span></div>
-      <div>{text}</div>
+      <div>{type === 'system' ? `🔥 ${text}` : text}</div>
     </div>
   );
 };

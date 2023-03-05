@@ -19,7 +19,7 @@ export const PostForm: FC<Props> = ({ addPost, cancel }) => {
 
   const submitHandler = async () => {
     const post = await api.addPost(text);
-    addPost(post.data);    
+    addPost(post.data);
   };
 
   const cancelHandler = async () => {
@@ -39,19 +39,19 @@ export const PostForm: FC<Props> = ({ addPost, cancel }) => {
         change={changeHandler}
         error={error}
       /> */}
-      <textarea rows={15} placeholder="Поделитесь опытом" onChange={changeHandler}>
-
-      </textarea>
-      <Button
-        text="Отправить"
-        disabled={!isValidText}
-        click={submitHandler}
-      />
-      <Button
-        text="Не отправлять сообщение"
-        click={cancelHandler}
-        type='link'
-      />
+      <textarea
+        rows={15}
+        placeholder="Поделитесь опытом"
+        onChange={changeHandler}
+      ></textarea>
+      <Button text="Отправить" disabled={!isValidText} click={submitHandler} />
+      <div className="mt-20">
+        <Button
+          text="Не отправлять сообщение"
+          click={cancelHandler}
+          type="link"
+        />
+      </div>
     </div>
   );
 };

@@ -1,12 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './styles/index.scss';
-import { Router } from './pages/Router';
+import React, { Suspense } from "react";
+import logo from "./logo.svg";
+import "./styles/index.scss";
+import { Router } from "./pages/Router";
 
 function App() {
   return (
     <div className="App">
-      <Router />
+      <Suspense fallback={<span>...</span>}>
+        <Router />
+      </Suspense>
     </div>
   );
 }

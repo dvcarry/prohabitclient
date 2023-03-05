@@ -9,4 +9,5 @@ export interface IPost {
     name: string;
     text: string;
     create_date: Date;
+    user_id: number;
 } 

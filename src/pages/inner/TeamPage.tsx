@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NameForm } from "../../components/Forms/NameForm";
+import { Points } from "../../components/Points/Points";
 import { Section } from "../../components/Section/Section";
 import { api } from "../../config/api";
 
@@ -24,21 +25,26 @@ const TeamPage = () => {
   if (!team) return null;
 
   return (
-    <div>
-      <div className="mb-40">
-        <h1>Твоя команда</h1>
+    <div className="wrapper">
+      <div className="mb-20">
+        <h1>Моя команда</h1>        
+      </div>
+      <div className="mb-20 flex-center">
+        <span>Очков у команды: </span>
+        <Points points={team.points} />       
       </div>
       <div className="mb-40">
-        Команда создана, чтобы поддерживать тебя и нуждается в твоей поддержке. За каждую твоё выполненую привычку вся команда получает очки.
+        {team.users.map((user) => (
+          <div className="card flex-between">
+            <div>                
+              <div className="bold">{user.name}</div>
+              {user.today_done ? <span className="green">Выполнено сегодня</span> : <span className="red">Не выполнено сегодня</span>}
+            </div>
+            <Points points={user.points} />
+          </div>
+        ))}
       </div>
-      <div className="mb-40">
-        {
-            team.users.map(user => <div>{user.name}</div>)
-        }
-      </div>
-      <div >
-        <NameForm />
-      </div>
+      <div></div>
     </div>
   );
 };

@@ -6,7 +6,9 @@ import "./Layout.scss";
 export const Layout: FC = () => {
   return (
     <div className="page">
-      <div className="wrapper">
+      <div 
+      // className="wrapper"
+      >
         {/* <div>
         <Logo />
       </div> */}

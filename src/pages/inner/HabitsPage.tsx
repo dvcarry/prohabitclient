@@ -21,7 +21,7 @@ export const HabitsPage = () => {
 
   const submitHandler = async () => {
     await api.addUserHabit(cur);
-    history('/lk/team')
+    history('/lk/addtoteam')
   };
 
   useEffect(() => {
@@ -29,14 +29,13 @@ export const HabitsPage = () => {
   }, []);
 
   return (
-    <>
-      <div className="mb-40">
-        <h1>Выберите одну привычку</h1>
+    <div className="wrapper">
+      <div className="mb-20">
+        <h1>Выбери одну привычку</h1>
       </div>
-      <div className="mb-40">
-        Лучше прокачать одну привычку, нежели сбиться с пути и не получить ни одной.
+      <div className="mb-20">
+        Это должна быть самая важная привычка, которую ты хочешь закрепить.
       </div>
-
       <div className="habits">
         {habits.map((habit) => (
           <div
@@ -48,6 +47,6 @@ export const HabitsPage = () => {
         ))}
         <Button text="Сохранить" disabled={cur === 0 ? true : false} click={submitHandler} />
       </div>
-    </>
+    </div>
   );
 };
