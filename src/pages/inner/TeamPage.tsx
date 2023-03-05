@@ -3,6 +3,7 @@ import { NameForm } from "../../components/Forms/NameForm";
 import { Points } from "../../components/Points/Points";
 import { Section } from "../../components/Section/Section";
 import { api } from "../../config/api";
+import { getRelativeTime } from "../../helpers/getRelativeTime";
 
 interface ITeam {
   id: number;
@@ -27,10 +28,10 @@ const TeamPage = () => {
   return (
     <div className="wrapper">
       <div className="mb-20">
-        <h1>Моя команда</h1>        
+        <div className="heading">Моя команда</div>        
       </div>
       <div className="mb-20 flex-center">
-        <span>Очков у команды: </span>
+        <span>Рейтинг команды: </span>
         <Points points={team.points} />       
       </div>
       <div className="mb-40">
@@ -39,6 +40,7 @@ const TeamPage = () => {
             <div>                
               <div className="bold">{user.name}</div>
               {user.today_done ? <span className="green">Выполнено сегодня</span> : <span className="red">Не выполнено сегодня</span>}
+              <div className="font-gray text-small mt-10">{user.last_login && `Был(а) ${getRelativeTime(user.last_login)}`}</div>
             </div>
             <Points points={user.points} />
           </div>

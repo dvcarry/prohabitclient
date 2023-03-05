@@ -15,7 +15,6 @@ interface IUser {
 
 const TeamPage = () => {
   const [user, setUser] = useState<IUser | null>(null);
-  console.log("🚀 ~ file: UserPage.tsx:16 ~ TeamPage ~ user:", user);
 
   const getUser = async () => {
     const res = await api.getUser();
@@ -31,7 +30,7 @@ const TeamPage = () => {
   return (
     <div className="wrapper">
       <div className="mb-20">
-        <h1>{user.name}</h1>
+        <div className="heading">{user.name}</div>
       </div>
       <div className="mb-20 flex-center">
         <span>Рейтинг: </span>        
