@@ -12,3 +12,11 @@ export const renderWithRouter = (component, initialRoute = '/') => {
         </MemoryRouter>
     )
 }
+
+export const renderComponentWithRouter = (component, initialRoute = '/') => {
+    return (
+        <MemoryRouter initialEntries={[initialRoute]}>
+                {component}
+        </MemoryRouter>
+    )
+}
