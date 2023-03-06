@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { DateCard } from "../../components/DateCard/DateCard";
-import { NameForm } from "../../components/Forms/NameForm";
 import { Points } from "../../components/Points/Points";
-import { Section } from "../../components/Section/Section";
 import { api } from "../../config/api";
 
 interface IUser {

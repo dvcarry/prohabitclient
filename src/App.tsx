@@ -1,5 +1,4 @@
-import React, { Suspense } from "react";
-import logo from "./logo.svg";
+import { Suspense } from "react";
 import "./styles/index.scss";
 import { Router } from "./pages/Router";
 

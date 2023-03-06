@@ -1,8 +1,8 @@
 import { RegistrationForm } from "../../components/Forms/RegistrationForm";
 import { Section } from "../../components/Section/Section";
 import friens from "../../assets/friends.png";
-import img1 from "../../assets/1.png";
-import { Button } from "../../components/Button/Button";
+// import img1 from "../../assets/1.png";
+// import { Button } from "../../components/Button/Button";
 import { useCheckAuth } from "../../hooks/useCheckAuth";
 import { Card } from "../../components/Card/Card";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ const LandingPage = () => {
           получишь поддержку и сможешь оказать её другим. Бесплатно.
         </div>
         <div>
-          <img src={friens} />
+          <img src={friens} alt='prohabit'/>
         </div>
         <RegistrationForm />
       <div className="mt-20">

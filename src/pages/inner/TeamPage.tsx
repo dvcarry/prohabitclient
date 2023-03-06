@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { NameForm } from "../../components/Forms/NameForm";
 import { Points } from "../../components/Points/Points";
-import { Section } from "../../components/Section/Section";
 import { api } from "../../config/api";
 import { getRelativeTime } from "../../helpers/getRelativeTime";
 

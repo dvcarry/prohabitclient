@@ -4,13 +4,10 @@ import { api } from "../../config/api";
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
 
-function validateEmail(email: string) {
-  var re = /\S+@\S+\.\S+/;
-  return re.test(email);
-}
+
 
 export const NameForm = () => {
-  const [error, setError] = useState("");
+  const [error] = useState("");
   const [name, setName] = useState("");
 
   const history = useNavigate();

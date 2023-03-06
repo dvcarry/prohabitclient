@@ -6,8 +6,7 @@ import { Button } from "../../components/Button/Button";
 import { PostForm } from "../../components/Forms/PostForm";
 import { Points } from "../../components/Points/Points";
 import { Post } from "../../components/Post/Post";
-import { Section } from "../../components/Section/Section";
-import { Tips } from "../../components/Tips/Tips";
+// import { Tips } from "../../components/Tips/Tips";
 import { api } from "../../config/api";
 import { IPost, IUser } from "../../types";
 
@@ -25,7 +24,6 @@ function getWeekDay(date: Date) {
 }
 
 const ServicePage = () => {
-  const today = getWeekDay(new Date());
   const [data, setData] = useState<{
     users: IUser[];
     myDone: boolean;
@@ -35,7 +33,7 @@ const ServicePage = () => {
     teamPoints: number;
     myName: string;
   } | null>(null);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [postWriting, setPostWriting] = useState(false);
 
   const history = useNavigate()

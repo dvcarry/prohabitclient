@@ -13,5 +13,5 @@ export const useCheckAuth = () => {
         if (JSON.parse(storage).token) {
             history('lk')
         }
-    }, [])
+    }, [history])
 }

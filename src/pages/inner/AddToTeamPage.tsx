@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { NameForm } from "../../components/Forms/NameForm";
-import { Section } from "../../components/Section/Section";
 import { api } from "../../config/api";
 
 interface ITeam {

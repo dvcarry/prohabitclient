@@ -1,8 +1,6 @@
 import { ChangeEvent, FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { api } from "../../config/api";
 import { Button } from "../Button/Button";
-import { Input } from "../Input/Input";
 
 interface Props {
   addPost: (post: any) => void;
@@ -10,7 +8,7 @@ interface Props {
 }
 
 export const PostForm: FC<Props> = ({ addPost, cancel }) => {
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [text, setText] = useState("");
 
   const changeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
