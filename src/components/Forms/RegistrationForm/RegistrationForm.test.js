@@ -1,21 +1,22 @@
 import { RegistrationForm } from "./RegistrationForm";
-import { render, screen } from "@testing-library/react"
-import { renderComponentWithRouter } from "../../../tests/helpers/renderWithRouter";
-import userEvent from "@testing-library/user-event";
-import { api } from "../../../config/api";
+import { render, screen, fireEvent } from "@testing-library/react"
 
-jest.mock('../../../config/api')
+
+const mockRegisterFn = jest.fn();
+
+jest.mock("../../../hooks/useAuth", () => ({
+    useAuth: () => ({ registerUser: mockRegisterFn }),
+}));
 
 describe('RegistrationForm', () => {
 
     let button
     let input
 
-    beforeEach(async () => {
-        render(renderComponentWithRouter(<RegistrationForm />));
+    beforeEach(() => {
+        render(<RegistrationForm />);
         button = screen.getByRole('button', { name: "Зарегистрироваться" });
         input = screen.getByPlaceholderText('email');
-        
     });
 
     test('render form', async () => {
@@ -23,19 +24,18 @@ describe('RegistrationForm', () => {
         expect(input).toBeInTheDocument();
     });
     test('input empty email', async () => {
-        userEvent.click(button);
+        fireEvent.click(button);
         expect(await screen.findByText(/корректный/i)).toBeInTheDocument();
     });
     test('input incorrect email', async () => {
-        userEvent.type(input, 'qwerty')
-        userEvent.click(button);
+        fireEvent.change(input, {target: {value: 'qwerty'}})
+        fireEvent.click(button);
         expect(await screen.findByText(/корректный/i)).toBeInTheDocument();
     });
     test('input correct email', async () => {
-        api.registration.mockResolvedValueOnce({ data: { success: true, token: 'dddddd' } });
-        userEvent.type(input, 'qwerty@sdsdsd.ru');
-        userEvent.click(button);
-        expect(api.registration).toHaveBeenCalledTimes(1);
-        expect(api.registration).toHaveBeenCalledWith({ email: 'qwerty@sdsdsd.ru' });    
+        fireEvent.change(input, {target: {value: 'qwerty@sdsdsd.ru'}})
+        fireEvent.click(button);
+        expect(mockRegisterFn).toHaveBeenCalledTimes(1);
+        expect(mockRegisterFn).toHaveBeenCalledWith('qwerty@sdsdsd.ru');    
     });
 });
