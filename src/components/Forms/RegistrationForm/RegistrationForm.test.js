@@ -1,12 +1,10 @@
 import { RegistrationForm } from "./RegistrationForm";
-import { render, screen, waitFor } from "@testing-library/react"
-import { renderComponentWithRouter } from "../../tests/helpers/renderWithRouter";
+import { render, screen } from "@testing-library/react"
+import { renderComponentWithRouter } from "../../../tests/helpers/renderWithRouter";
 import userEvent from "@testing-library/user-event";
-import { api } from "../../config/api";
+import { api } from "../../../config/api";
 
-
-
-jest.mock('../../config/api')
+jest.mock('../../../config/api')
 
 describe('RegistrationForm', () => {
 
@@ -17,8 +15,8 @@ describe('RegistrationForm', () => {
         render(renderComponentWithRouter(<RegistrationForm />));
         button = screen.getByRole('button', { name: "Зарегистрироваться" });
         input = screen.getByPlaceholderText('email');
+        
     });
-
 
     test('render form', async () => {
         expect(button).toBeInTheDocument();
@@ -40,4 +38,4 @@ describe('RegistrationForm', () => {
         expect(api.registration).toHaveBeenCalledTimes(1);
         expect(api.registration).toHaveBeenCalledWith({ email: 'qwerty@sdsdsd.ru' });    
     });
-})
+});

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../config/api";
-import { Button } from "../Button/Button";
-import { Input } from "../Input/Input";
+import { api } from "../../../config/api";
+import { LOCALSTORAGE_NAME } from "../../../config/constatnts";
+import { Button } from "../../Button/Button";
+import { Input } from "../../Input/Input";
 
 function validateEmail(email: string) {
   var re = /\S+@\S+\.\S+/;
@@ -25,7 +26,7 @@ export const RegistrationForm = () => {
       setError("Введите корректный email");
     } else {
       const user = await api.registration({ email });
-      localStorage.setItem("prohabit", JSON.stringify({ token: user.data }));
+      localStorage.setItem(LOCALSTORAGE_NAME, JSON.stringify({ token: user.data }));
       history("/lk/habits");
     }
   };

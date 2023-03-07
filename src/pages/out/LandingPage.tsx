@@ -1,4 +1,4 @@
-import { RegistrationForm } from "../../components/Forms/RegistrationForm";
+import { RegistrationForm } from "../../components/Forms/RegistrationForm/RegistrationForm";
 import { Section } from "../../components/Section/Section";
 import friens from "../../assets/friends.png";
 // import img1 from "../../assets/1.png";

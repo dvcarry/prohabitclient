@@ -6,22 +6,9 @@ import { Button } from "../../components/Button/Button";
 import { PostForm } from "../../components/Forms/PostForm";
 import { Points } from "../../components/Points/Points";
 import { Post } from "../../components/Post/Post";
-// import { Tips } from "../../components/Tips/Tips";
 import { api } from "../../config/api";
 import { IPost, IUser } from "../../types";
 
-// function getWeekDay(date: Date) {
-//   let days = [
-//     "Воскресенье",
-//     "Понедельник",
-//     "Вторник",
-//     "Среда",
-//     "Четверг",
-//     "Пятница",
-//     "Суббота",
-//   ];
-//   return days[date.getDay()];
-// }
 
 const ServicePage = () => {
   const [data, setData] = useState<{
